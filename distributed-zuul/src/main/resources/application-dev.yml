@@ -1,0 +1,10 @@
+server:
+  port: 5000
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+zuul:
+  routes:

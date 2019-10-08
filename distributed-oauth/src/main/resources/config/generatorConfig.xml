@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE generatorConfiguration
+      PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+      "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+    <generatorConfiguration>
+    <classPathEntry location="E:\computer\apache-maven-3.5.0-bin\Local\mysql\mysql-connector-java\5.1.47\mysql-connector-java-5.1.47.jar"/>
+    <!-- 数据库驱动 -->
+        <context id="MysSql"  targetRuntime="MyBatis3Simple">
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+<!--            <property name="javaFormatter" value="true" />-->
+            <plugin type="${mapper.plugin}">
+<!--            <plugin type="tk.mybatis.mapper.generator.MapperPlugin">-->
+                <property name="mappers" value="${mapper.Mapper}"/>
+<!--                <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>-->
+            </plugin>
+
+            <!-- 生成 JavaBean 对象重写 toString方法 -->
+            <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+
+            <!-- 生成 JavaBean 对象继承 Serializable 类 -->
+            <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+
+            <commentGenerator>
+                <property name="suppressDate" value="true"/>
+                <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+                <property name="suppressAllComments" value="false"/>
+                <property name="javaFileEncoding" value="utf-8"/>
+            </commentGenerator>
+            <!--切换为自己的用户名和密码-->
+            <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                            connectionURL="jdbc:mysql://127.0.0.1:3306/docker-user?useUnicode=true&amp;characterEncoding=UTF8"
+                            userId="root"
+                            password="123456">
+            </jdbcConnection>
+            <javaTypeResolver>
+                <property name="forceBigDecimals" value="false"/>
+            </javaTypeResolver>
+            <!-- 生成模型的包名和位置 -->
+            <javaModelGenerator targetPackage="${targetModelPackage}" targetProject="${targetJavaProject}" >
+                <property name="enableSubPackages" value="true"/>
+                <property name="trimStrings" value="true"/>
+            </javaModelGenerator>
+            <!-- 生成映射文件的包名和位置 -->
+            <sqlMapGenerator targetPackage="${targetXMLPackage}"  targetProject="${targetResourcesProject}">
+                <property name="enableSubPackages" value="true"/>
+            </sqlMapGenerator>
+            <!-- 生成mapper的包名和位置 -->
+            <javaClientGenerator  type="XMLMAPPER" targetPackage="${targetMapperPackage}" targetProject="${targetJavaProject}">
+                <property name="enableSubPackages" value="true"/>
+            </javaClientGenerator>
+            <table  schema="${tableschema}" tableName="${tableName}" domainObjectName="${tabledomainObjectName}"
+                    enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+                    enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        </context>
+    </generatorConfiguration>
