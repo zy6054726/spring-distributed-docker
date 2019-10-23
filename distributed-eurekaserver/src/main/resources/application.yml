@@ -1,0 +1,60 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: distributed-eurekaserver
+#    name: @pom.artifactId@
+---
+spring:
+  profiles: server1
+server:
+  port: 8761
+eureka:
+  instance:
+    hostname: server1
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://server2:8762/eureka,http://server3:8763/eureka,http://server4:8764/eureka
+---
+spring:
+  profiles: server2
+server:
+  port: 8762
+eureka:
+  instance:
+    hostname: server2
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://server1:8761/eureka,http://server3:8763/eureka,http://server4:8764/eureka
+---
+spring:
+  profiles: server3
+server:
+  port: 8763
+eureka:
+  instance:
+    hostname: server3
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://server1:8761/eureka,http://server2:8762/eureka,http://server4:8764/eureka
+    prefer-ip-address: true
+    health-check-url-path: /health
+---
+spring:
+  profiles: server4
+server:
+  port: 8764
+eureka:
+  instance:
+    hostname: server4
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://server1:8761/eureka,http://server2:8762/eureka,http://server3:8763/eureka
