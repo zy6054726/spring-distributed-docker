@@ -6,19 +6,22 @@
         <artifactId>spring-distributed-docker</artifactId>
         <groupId>com.distributed</groupId>
         <version>1.0-SNAPSHOT</version>
-<!--        <relativePath>../pom.xml</relativePath>-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <description>权限认证</description>
+    <artifactId>distributed-oauth</artifactId>
 
-    <artifactId>distributed-common</artifactId>
-    <packaging>pom</packaging>
-    <description>通用类集合</description>min
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <finalName>${artifactId}</finalName>
     </build>
-    <modules>
-        <module>distributed-common-constant</module>
-        <module>distributed-common-UUID</module>
-    </modules>
 </project>

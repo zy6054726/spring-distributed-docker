@@ -13,6 +13,7 @@
         <module>distributed-common</module>
         <module>distributed-zuul</module>
         <module>distributed-eurekaserver</module>
+        <module>distributed-oauth</module>
     </modules>
 
     <developers>
@@ -32,6 +33,7 @@
         <function.version>1.0</function.version>
         <!-- spring cloud体系 -->
         <spring-cloud.version>Hoxton.M3</spring-cloud.version>
+        <spring-cloud-child.verion>2.2.0.M3</spring-cloud-child.verion>
     </properties>
 
     <dependencyManagement>
@@ -56,6 +58,18 @@
                 <artifactId>spring-boot-devtools</artifactId>
                 <optional>true</optional>
             </dependency>
+            <!-- 权限认证 Start -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-oauth2</artifactId>
+                <version>${spring-cloud-child.verion}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-security</artifactId>
+                <version>${spring-cloud-child.verion}</version>
+            </dependency>
+            <!-- 权限认证  End -->
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -186,26 +200,24 @@
 <!--        </repository>-->
 <!--    </distributionManagement>-->
 
-<!--    &lt;!&ndash; 配置资源本地资源下载仓库服务 &ndash;&gt;-->
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>nexus</id>-->
-<!--            <name>Team Nexus Repository</name>-->
-<!--            <url>http://106.13.84.177:8000/repository/maven-public/</url>-->
-<!--        </repository>-->
-<!--    </repositories>-->
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>nexus</id>-->
-<!--            <name>Team Nexus Repository</name>-->
-<!--            <url>http://106.13.84.177:8000/repository/maven-public/</url>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <!-- 配置资源本地资源下载仓库服务 -->
     <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://106.13.84.177:8000/repository/maven-public/</url>
+        </repository>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://106.13.84.177:8000/repository/maven-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
