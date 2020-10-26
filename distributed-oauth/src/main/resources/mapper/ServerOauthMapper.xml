@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.distributed.oauth.server.mapper.ServerOauthMapper" >
+  <resultMap id="BaseResultMap" type="com.distributed.oauth.server.model.ServerOauth" >
+    <id column="uuid" property="uuid" javaType="String" />
+    <result column="client_id" property="clientId" javaType="String" />
+    <result column="resource_ids" property="resourceIds" javaType="String" />
+    <result column="client_secret" property="clientSecret" javaType="String" />
+    <result column="scpoe" property="scpoe" javaType="String" />
+    <result column="authorized_grant_types" property="authorizedGrantTypes" javaType="String" />
+    <result column="access_token_validity" property="accessTokenValidity" javaType="Long" />
+    <result column="refresh_token_validity" property="refreshTokenValidity" javaType="Long" />
+    <result column="autoapprove" property="autoapprove" javaType="String" />
+  </resultMap>
+
+  <select id="findByClientId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select uuid, client_id, resource_ids, client_secret, scpoe, authorized_grant_types,
+    access_token_validity, refresh_token_validity, autoapprove
+    from server_oauth
+    where client_id = #{clientId}
+  </select>
+  <select id="isPresence" resultType="int" parameterType="java.lang.String">
+    select
+        count(uuid)
+    from
+        server_oauth
+    where
+        client_id like #{client_id}
+  </select>
+  <insert id="insert" parameterType="com.distributed.oauth.server.model.ServerOauth" >
+    insert into server_oauth (uuid, client_id, resource_ids,
+      client_secret, scpoe, authorized_grant_types,
+      access_token_validity, refresh_token_validity,
+      autoapprove)
+    values (#{uuid}, #{clientId}, #{resourceIds},
+      #{clientSecret}, #{scpoe}, #{authorizedGrantTypes},
+      #{accessTokenValidity}, #{refreshTokenValidity},
+      #{autoapprove})
+  </insert>
+</mapper>

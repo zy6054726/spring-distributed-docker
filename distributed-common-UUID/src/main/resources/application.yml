@@ -1,0 +1,28 @@
+server:
+  port: 20000
+spring:
+  application:
+    name: @pom.artifactId@
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+logging:
+  level:
+    net.mapone.traffic.compute: debug
+  file: logs/@pom.artifactId@.log
+  file.max-size: 10MB
+  file.max-history : 365
+  pattern:
+    file: '[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %line - %msg%n'
+    console: '[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %line - %msg%n'
+cachedUid:
+  timeBits: 29
+  workerBits: 21
+  seqBits: 13
+  epochStr: 2020-03-10
+  boostPower: 3
+  scheduleInterval: 60

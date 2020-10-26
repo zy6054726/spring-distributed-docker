@@ -1,14 +1,24 @@
 spring:
-  profiles:
-    active: dev
   application:
-    name: distributed-eurekaserver
-#    name: @pom.artifactId@
+    name: @pom.artifactId@
+  security:
+    user:
+      name: admin
+      password: zhangyong
+logging:
+  level:
+    net.mapone.traffic.compute: debug
+  file: logs/@pom.artifactId@.log
+  file.max-size: 10MB
+  file.max-history : 365
+  pattern:
+    file: '[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %line - %msg%n'
+    console: '[%date{yyyy-MM-dd HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %line - %msg%n'
 ---
 spring:
   profiles: server1
 server:
-  port: 8761
+  port: 9081
 eureka:
   instance:
     hostname: server1
@@ -16,12 +26,16 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://server2:8762/eureka,http://server3:8763/eureka,http://server4:8764/eureka
+      defaultZone: http://admin:zhangyong@server2:9082/eureka,http://admin:zhangyong@server3:9083/eureka,http://admin:zhangyong@server4:9084/eureka
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
+    renewal-percent-threshold: 0.5
 ---
 spring:
   profiles: server2
 server:
-  port: 8762
+  port: 9082
 eureka:
   instance:
     hostname: server2
@@ -29,12 +43,16 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://server1:8761/eureka,http://server3:8763/eureka,http://server4:8764/eureka
+      defaultZone: http://admin:zhangyong@server1:9081/eureka,http://admin:zhangyong@server3:9083/eureka,http://admin:zhangyong@server4:9084/eureka
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
+    renewal-percent-threshold: 0.5
 ---
 spring:
   profiles: server3
 server:
-  port: 8763
+  port: 9083
 eureka:
   instance:
     hostname: server3
@@ -42,14 +60,18 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://server1:8761/eureka,http://server2:8762/eureka,http://server4:8764/eureka
+      defaultZone: http://admin:zhangyong@server1:9081/eureka,http://admin:zhangyong@server2:9082/eureka,http://admin:zhangyong@server4:9084/eureka
     prefer-ip-address: true
     health-check-url-path: /health
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
+    renewal-percent-threshold: 0.5
 ---
 spring:
   profiles: server4
 server:
-  port: 8764
+  port: 9084
 eureka:
   instance:
     hostname: server4
@@ -57,4 +79,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://server1:8761/eureka,http://server2:8762/eureka,http://server3:8763/eureka
+      defaultZone: http://admin:zhangyong@server1:9081/eureka,http://admin:zhangyong@server2:9082/eureka,http://admin:zhangyong@server3:9083/eureka
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 10000
+    renewal-percent-threshold: 0.5

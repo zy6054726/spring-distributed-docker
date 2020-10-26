@@ -5,6 +5,18 @@ spring:
     active: dev
   application:
     name: @pom.artifactId@
+#security:
+#  loginTimeLimit: 3
+#  loginAfterTime: 1
+securitys:
+  key: l4qlufpb
+  client_app:
+    client_id: app
+    client_pw: a119ed01622927d54cd67e10cbb9f7ad
+    type: refresh_token,password
+    scopes: all
+    resourceIds: app
+
 
 
 
